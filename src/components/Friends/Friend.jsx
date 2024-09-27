@@ -17,10 +17,10 @@ export const Friend = () => {
         let arr = []
         snapshot.forEach((item)=>{
           if(item.val().currentUserId == sliceUser.uid){
-            arr.push({friendId: item.val().friendId, friendName: item.val().friendName, friendPhoto:item.val().friendPhoto})
+            arr.push({friendId: item.val().friendId, friendName: item.val().friendName, friendPhoto:item.val().friendPhoto, key:item.key})
           }
           else if(item.val().friendId == sliceUser.uid){
-            arr.push({friendId: item.val().currentUserId, friendName: item.val().currentUserName, friendPhoto:item.val().currentUserPhoto})
+            arr.push({friendId: item.val().currentUserId, friendName: item.val().currentUserName, friendPhoto:item.val().currentUserPhoto, key:item.key})
 
           }
         })
@@ -29,18 +29,20 @@ export const Friend = () => {
     } , [])
     // ============ block friend part
     const handleBlock =(data)=>{
-      //  =========== set data to block collection
       set(push(ref(db, 'blockList/')),{
-       currentUserId: sliceUser.uid ,
-       currentUserName: sliceUser.displayName ,
-       currentUserPhoto: sliceUser.photoURL ,
-       friendId: data.friendId,
-       friendName: data.friendName,
-       friendPhoto: data.friendPhoto,
-      })
-      //  =========== remove data from friend collection
-      remove(ref(db, 'friends/' + data.key))
-    }
+        currentUserId: sliceUser.uid ,
+        currentUserName: sliceUser.displayName ,
+        currentUserPhoto: sliceUser.photoURL ,
+        friendId: data.friendId,
+        friendName: data.friendName,
+        friendPhoto: data.friendPhoto,
+       }) 
+            console.log('mid')
+ 
+       //  =========== remove data from friend collection
+       remove(ref(db, 'friends/' + data.key))
+                  console.log('button')
+      }
   
     
   return (

@@ -9,18 +9,21 @@ export const BlockList = () => {
    // ========== firebase variables
    const db = getDatabase();
 //    ============== functions
-   useEffect(()=>{
-    const starCountRef = ref(db, 'blockList/');
-    onValue(starCountRef, (snapshot) => {
-      let arr = []
-      snapshot.forEach((item)=>{
-        if(item.val().senderId == sliceUser.uid){
-          arr.push({...item.val(), key:item.key})
-        }
-      })
-      setBlockFriend(arr)
-  });
-  }, [])
+useEffect(()=>{
+  const starCountRef = ref(db, 'blockList/');
+  onValue(starCountRef, (snapshot) => {
+    let arr = []
+    snapshot.forEach((item)=>{
+      if(item.val().currentUserId == sliceUser.uid){
+        arr.push({userid: item.val().friendId,username: item.val().friendName, userphoto: item.val().friendPhoto,
+        }) 
+      }else if(item.val().friendId == sliceUser.uid){
+          arr.push({userid: item.val().currentUserId,username: item.val().currentUserName, userphoto: item.val().currentUserPhoto,})
+      }
+    })
+    setBlockFriend(arr)
+});
+}, [])
   return (
     <>
      <div className='container  flex justify-center items-center'>
@@ -31,9 +34,9 @@ export const BlockList = () => {
                      <div key={item.key} className="flex justify-between items-center gap-8 mb-5 ">
                       <div className='flex items-center gap-5'> 
                          <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
-                          <img src={item.friendPhoto} alt="user photo" />
+                          <img src={item.userphoto} alt="user photo" />
                           </div>
-                          <h2 className='text-lg font-semibold'>{item.friendName} </h2>
+                          <h2 className='text-lg font-semibold'>{item.username} </h2>
                       </div>
                       <div className="butts">
                           <button className='rounded-lg py-1 px-3 bg-red-600 text-sm text-white font-normal'>Unblock</button>

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 export const FriendRequest = () => {
   // ========== get data from redux
   const sliceUser = useSelector((state)=>state.counter.value)
-  console.log(sliceUser)
   // ========== variables 
   const [friendRequest , setFriendRequest] = useState([])
   // ========== firebase variables
