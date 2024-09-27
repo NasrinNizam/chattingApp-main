@@ -1,24 +1,48 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { getDatabase, ref, onValue, push  } from "firebase/database";
+import { useSelector } from 'react-redux';
 export const BlockList = () => {
+    // ========== data get from redux
+  const sliceUser= useSelector((state)=>state.counter.value)
+  // ========== variables
+   const [blockFriend, setBlockFriend] = useState([])
+   // ========== firebase variables
+   const db = getDatabase();
+//    ============== functions
+   useEffect(()=>{
+    const starCountRef = ref(db, 'blockList/');
+    onValue(starCountRef, (snapshot) => {
+      let arr = []
+      snapshot.forEach((item)=>{
+        if(item.val().senderId == sliceUser.uid){
+          arr.push({...item.val(), key:item.key})
+        }
+      })
+      setBlockFriend(arr)
+  });
+  }, [])
   return (
-    <div>
-        <div className='container  flex justify-center items-center'>
-      <div className="p-5 bg-[#074173] bg-opacity-50 h-[500px] border-2 border-[#074173] rounded-lg mt-10 flex flex-col gap-6 p-5 ">
-        <h2 className='text-lg font-medium font-poppins mt-5 text-center'>Block List</h2>
-            <div className="flex justify-between items-center gap-8 mb-5 ">
-             <div className='flex items-center gap-5'> 
-                <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
-                 <img src='' alt="user photo" />
-                 </div>
-                 <h2 className='text-lg font-semibold'>Name</h2>
-             </div>
-             <div className="butts">
-                 <button className='rounded-lg py-1 px-3 bg-red-600 text-sm text-white font-normal'>Unblock</button>
-             </div>
-         </div>    
-       </div>
-     </div>
-    </div>
+    <>
+     <div className='container  flex justify-center items-center'>
+          <div className="p-5 bg-[#074173] bg-opacity-50 h-[500px] border-2 border-[#074173] rounded-lg mt-10 flex flex-col gap-6 py-5 px-10 overflow-scroll ">
+                 <h2 className='text-lg font-medium font-poppins mt-5 text-center'>Block List</h2>
+               {
+                  blockFriend.map((item)=>(
+                     <div key={item.key} className="flex justify-between items-center gap-8 mb-5 ">
+                      <div className='flex items-center gap-5'> 
+                         <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
+                          <img src={item.friendPhoto} alt="user photo" />
+                          </div>
+                          <h2 className='text-lg font-semibold'>{item.friendName} </h2>
+                      </div>
+                      <div className="butts">
+                          <button className='rounded-lg py-1 px-3 bg-red-600 text-sm text-white font-normal'>Unblock</button>
+                      </div>
+                    </div>    
+                  ))
+               }
+          </div>
+      </div>
+    </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, set, push, remove } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 export const Friend = () => {
@@ -27,16 +27,30 @@ export const Friend = () => {
         setFriends(arr)
       });
     } , [])
+    // ============ block friend part
+    const handleBlock =(data)=>{
+      //  =========== set data to block collection
+      set(push(ref(db, 'blockList/')),{
+       currentUserId: sliceUser.uid ,
+       currentUserName: sliceUser.displayName ,
+       currentUserPhoto: sliceUser.photoURL ,
+       friendId: data.friendId,
+       friendName: data.friendName,
+       friendPhoto: data.friendPhoto,
+      })
+      //  =========== remove data from friend collection
+      remove(ref(db, 'friends/' + data.key))
+    }
   
     
   return (
     <div className='container  flex justify-center items-center'>
-      <div className="p-5 bg-[#074173] bg-opacity-50 h-[500px] border-2 border-[#074173] rounded-lg mt-10 flex flex-col gap-6 p-5 ">
+      <div className="p-5 bg-[#074173] bg-opacity-50 h-[500px] border-2 border-[#074173] rounded-lg mt-10 flex flex-col gap-6 ">
         <h2 className='text-lg font-medium font-poppins mt-5 text-center'>Friends</h2>
 
         {
           friends.map((item)=>(
-            <div className="flex justify-between gap-8 mb-5 ">
+            <div key={item.key} className="flex justify-between gap-8 mb-5 ">
              <div className='flex items-center gap-5'> 
                 <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
                  <img src={item.friendPhoto} alt="user photo" />
@@ -45,7 +59,7 @@ export const Friend = () => {
              </div>
              <div className="flex justify-center items-center gap-2">
                  <button className='rounded-lg py-2 px-3 bg-[#074173] text-sm  text-white font-normal'>Unfriend</button>
-                 <button className='rounded-lg py-2 px-3 bg-red-600 text-sm  text-white font-normal'>Block</button>
+                 <button onClick={()=>handleBlock(item)} className='rounded-lg py-2 px-3 bg-red-600 text-sm  text-white font-normal'>Block</button>
              </div>
          </div>
           ))

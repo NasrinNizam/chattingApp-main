@@ -31,7 +31,7 @@ export const User = () => {
       set(push(ref(db, 'friendrequest/')), {
        senderId : sliceUser.uid,
        senderName : sliceUser.displayName,
-       senderImage : sliceUser.photoURL,
+       senderPhoto : sliceUser.photoURL,
        receiverId : items.uid,
        receiverName :items.userName,
        receiverPhoto :items.userPhoto,
