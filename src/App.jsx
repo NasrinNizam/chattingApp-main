@@ -16,6 +16,7 @@ import { NotificationPage } from './Pages/NotificationPage'
 import { UsersPage } from './Pages/UsersPage'
 import { FriendRequPage } from './Pages/FriendRequPage'
 import { BlockListPage } from './Pages/BlockListPage'
+import { SentFriend } from './components/Users/SentFriend'
 function App() {
   const route = createBrowserRouter(
     createRoutesFromElements(
@@ -30,6 +31,7 @@ function App() {
              <Route path='/friendRequPage' element={<FriendRequPage/>}/>
              <Route path='/userPage' element={<UsersPage/>}/>
              <Route path='/chatPage' element={<ChatPage/>}/>
+             <Route path='/sentFriend' element={<SentFriend/>}/>
              <Route path='/BlockPage' element={<BlockListPage/>}/>
              <Route path='/notificationPage' element={<NotificationPage/>}/>
            </Route>

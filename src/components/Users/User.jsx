@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDatabase, ref, onValue , set, push  } from "firebase/database";
+import { getDatabase, ref, onValue , set, push, remove  } from "firebase/database";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +36,6 @@ export const User = () => {
        receiverName :items.userName,
        receiverPhoto :items.userPhoto,
       });
-
       setRequest((prevStatus) => ({
         ...prevStatus,
         [items.uid]: true
@@ -45,8 +44,8 @@ export const User = () => {
       //  ============== console part
 
   return (
-    <div className='container  flex justify-center items-center'>
-      <div className="px-8 py-3 bg-[#074173] bg-opacity-50 h-[500px] border-2 border-[#074173] rounded-lg mt-10 flex flex-col gap-6 p-5 ">
+    <div className='container flex justify-center items-center'>
+      <div className="lg:px-8 lg:py-3 bg-[#074173] bg-opacity-50 h-[500px] border-2 border-[#074173] rounded-lg mt-10 flex flex-col gap-6 p-5 ">
         <h2 className='text-lg font-medium font-poppins mt-5 text-center'>People You may know</h2>
 
         {
@@ -56,20 +55,20 @@ export const User = () => {
                 <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
                  <img src={item.userPhoto} alt="user photo" />
                  </div>
-                 <h2 className='text-lg font-semibold'>{item.userName} </h2>
+                 <h2 className='lg:text-lg font-semibold'>{item.userName} </h2>
              </div>
              <div className="">
              {
-               request[item.uid] ?
-                <button className="flex justify-center items-center gap-[5px] text-white text-sm  bg-gray-400 font-medium py-2 px-3 rounded">
-                   Request sent
-                </button>
-                :
-                <button onClick={()=>handleAdd(item)} className="flex justify-center items-center gap-[5px] text-white text-sm bg-[#074173] font-medium py-2 px-3 rounded-lg">
-                    Add
-                </button>
-              }
-
+                request[item.uid] ?
+                 <button className="flex justify-center items-center gap-[5px] text-white lg:text-sm  bg-gray-400 font-medium py-2 px-3 rounded">
+                    Request sent
+                 </button>
+                 :
+                 <button onClick={()=>handleAdd(item)} className="flex justify-center items-center gap-[5px] text-white lg:text-sm bg-[#074173] font-medium py-2 px-3 rounded-lg">
+                     Add
+                 </button>
+              
+             }
              </div>
          </div>
           ))

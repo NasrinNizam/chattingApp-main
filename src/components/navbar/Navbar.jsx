@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { IoIosLogIn } from "react-icons/io";
 import { useSelector } from 'react-redux';
@@ -6,8 +6,22 @@ import { BsPersonVcardFill, BsPersonCheckFill  } from "react-icons/bs";
 import { AiFillMessage } from "react-icons/ai";
 import { IoNotificationsCircleSharp } from "react-icons/io5";
 import { IoMdPersonAdd } from "react-icons/io";
+import { FiMenu, FiX } from "react-icons/fi"; // Menu and Close icons
 
+import '../navbar/navbar.css'
 export const Navbar = () => {
+    // State to manage sidebar visibility
+    const [isOpen, setIsOpen] = useState(false);
+   
+     // Function to toggle sidebar
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Close sidebar when a link is clicked (useful for mobile)
+  const handleLinkClick = () => {
+    if (isOpen) setIsOpen(false);
+  };
   // =========== get data from slices
   const sliceUser = useSelector((state)=>state.counter.value)
   return (
@@ -21,6 +35,7 @@ export const Navbar = () => {
           <li><NavLink to="/" className={({ isActive }) => isActive ? " text-[18px] text-white font-medium bg-slate-400 px-3 py-1 rounded-lg flex items-center gap-2 " : " text-[18px] text-white font-normal flex items-center gap-2 "}><BsPersonVcardFill />Profile</NavLink></li>
           <li><NavLink to="/friendPage" className={({ isActive }) => isActive ? " text-[18px] text-white font-medium bg-slate-400 px-3 py-1 rounded-lg flex items-center gap-2 " : " text-[18px] text-white font-normal flex items-center gap-2 "}><BsPersonCheckFill /> Friends</NavLink></li>
           <li><NavLink to="/userPage" className={({ isActive }) => isActive ? " text-[18px] text-white font-medium bg-slate-400 px-3 py-1 rounded-lg flex items-center gap-2 " : " text-[18px] text-white font-normal flex items-center gap-2 "}><IoMdPersonAdd  />All User</NavLink></li>
+          <li><NavLink to="/sentFriend" className={({ isActive }) => isActive ? " text-[18px] text-white font-medium bg-slate-400 px-3 py-1 rounded-lg flex items-center gap-2 " : " text-[18px] text-white font-normal flex items-center gap-2 "}><IoMdPersonAdd  />Sent request</NavLink></li>
           <li><NavLink to="/chatPage" className={({ isActive }) => isActive ? " text-[18px] text-white font-medium bg-slate-400 px-3 py-1 rounded-lg flex items-center gap-2 " : " text-[18px] text-white font-normal flex items-center gap-2 "}>< AiFillMessage /> Massages</NavLink></li>
           <li><NavLink to="/notificationPage" className={({ isActive }) => isActive ? " text-[18px] text-white font-medium bg-slate-400 px-3 py-1 rounded-lg flex items-center gap-2 " : " text-[18px] text-white font-normal flex items-center gap-2 "}><IoNotificationsCircleSharp  /> Notification</NavLink></li>
         </ul>
@@ -35,6 +50,10 @@ export const Navbar = () => {
         <Link to="#" className='text-white flex items-center gap-2' >Log Out <IoIosLogIn /></Link>
       </div>
     </nav>
+    {/* ================= responsive */}
+     {/* Overlay */}
+     
     </>
-  )
-}
+  );
+};
+

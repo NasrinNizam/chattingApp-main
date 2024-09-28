@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDatabase, ref, onValue, push  } from "firebase/database";
+import { getDatabase, ref, onValue, push, remove, set  } from "firebase/database";
 import { useSelector } from 'react-redux';
 export const BlockList = () => {
     // ========== data get from redux
@@ -8,22 +8,35 @@ export const BlockList = () => {
    const [blockFriend, setBlockFriend] = useState([])
    // ========== firebase variables
    const db = getDatabase();
-//    ============== functions
+//    ============== add friend to block list
 useEffect(()=>{
   const starCountRef = ref(db, 'blockList/');
   onValue(starCountRef, (snapshot) => {
     let arr = []
     snapshot.forEach((item)=>{
       if(item.val().currentUserId == sliceUser.uid){
-        arr.push({userid: item.val().friendId,username: item.val().friendName, userphoto: item.val().friendPhoto,
+        arr.push({userid: item.val().friendId,username: item.val().friendName, userphoto: item.val().friendPhoto,  key:item.key
         }) 
       }else if(item.val().friendId == sliceUser.uid){
-          arr.push({userid: item.val().currentUserId,username: item.val().currentUserName, userphoto: item.val().currentUserPhoto,})
+          arr.push({userid: item.val().currentUserId,username: item.val().currentUserName, userphoto: item.val().currentUserPhoto, key:item.key})
       }
     })
     setBlockFriend(arr)
-});
-}, [])
+   });
+   }, [])
+  //  ============== unblock friend =================
+  const handleUnblock =(data)=>{
+     set(push(ref(db , 'friends/')),{
+      currentUserId: sliceUser.uid ,
+      currentUserName: sliceUser.displayName ,
+      currentUserPhoto: sliceUser.photoURL ,
+      friendId: data.userid,
+      friendName: data.username , 
+      friendPhoto: data.userphoto,
+     })
+    remove(ref(db, 'blockList/' + data.key))
+  
+  }
   return (
     <>
      <div className='container  flex justify-center items-center'>
@@ -39,7 +52,7 @@ useEffect(()=>{
                           <h2 className='text-lg font-semibold'>{item.username} </h2>
                       </div>
                       <div className="butts">
-                          <button className='rounded-lg py-1 px-3 bg-red-600 text-sm text-white font-normal'>Unblock</button>
+                          <button onClick={()=>handleUnblock(item)} className='rounded-lg py-1 px-3 bg-red-600 text-sm text-white font-normal'>Unblock</button>
                       </div>
                     </div>    
                   ))
