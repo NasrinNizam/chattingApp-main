@@ -31,8 +31,7 @@ function App() {
              <Route path='/friendRequPage' element={<FriendRequPage/>}/>
              <Route path='/userPage' element={<UsersPage/>}/>
              <Route path='/chatPage' element={<ChatPage/>}/>
-             <Route path='/sentFriend' element={<SentFriend/>}/>
-             <Route path='/BlockPage' element={<BlockListPage/>}/>
+             <Route path='/blockPage' element={<BlockListPage/>}/>
              <Route path='/notificationPage' element={<NotificationPage/>}/>
            </Route>
       </Route>

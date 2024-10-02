@@ -95,7 +95,7 @@ export const Login = () => {
                 navigate('/')
             // ================ dispatch part
                 dispatch(userData(user))
-            // ================ database part
+            // ================ realtime database part
             set(ref(db, 'Allusers/' + user.uid ), {
               userName: user.displayName,
               userPhoto: user.photoURL,
