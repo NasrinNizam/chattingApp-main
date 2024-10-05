@@ -24,9 +24,15 @@ export const Navbar = () => {
   };
   // =========== get data from slices
   const sliceUser = useSelector((state)=>state.counter.value)
+  // ========== logout
+  const handleLogout=()=>{
+    // clear the token and redirect to login page
+    localStorage.removeItem('sliceUser')
+
+  }
   return (
     <>
-    <nav className="bg-[#074173] h-screen w-[200px] px-5 flex flex-col justify-between absolute top-0 left-0 ">
+    <nav className="bg-[#074173] h-screen w-[200px] px-5 flex flex-col justify-between absolute top-0 left-0  ">
       <div className="mt-5 ">
         <h1 className='text-white text-[35px] font-sevillana font-bold '>Chatify</h1>
       </div>
@@ -47,7 +53,7 @@ export const Navbar = () => {
           </div>
           <h4 className="text-white  ">{sliceUser?.displayName} </h4>
         </div>
-        <Link to="#" className='text-white flex items-center gap-2' >Log Out <IoIosLogIn /></Link>
+        <Link onClick={handleLogout} to="/loginPage" className='text-white flex items-center gap-2' >Log Out <IoIosLogIn /></Link>
       </div>
     </nav>
     {/* ================= responsive */}
