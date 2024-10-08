@@ -15,7 +15,7 @@ export const LayoutOne = () => {
 
   } ,[])
   return (
-    <div>
+    <div className=' relative flex justify-items-center'>
       <Navbar/>
       <Outlet/>
     </div>

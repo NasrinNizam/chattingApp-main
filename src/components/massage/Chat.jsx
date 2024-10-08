@@ -4,7 +4,7 @@ import { Massage } from './Massage'
 
 export const Chat = () => {
   return (
-    <div className='pl-[200px] flex'>
+    <div className='lg:pl-[200px] flex '>
         <Massage />
         <ChatBar />
     </div>

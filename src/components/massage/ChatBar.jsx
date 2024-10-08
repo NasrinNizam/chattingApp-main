@@ -34,17 +34,17 @@ export const ChatBar = () => {
       localStorage.setItem('chatUser' , JSON.stringify(item))
     }
   return (
-    <div className='w-[250px] h-screen border-[1px] border-[#074173] bg-[#074173] bg-opacity-50 px-5 py-2 '>
+    <div className='md:w-[250px] w-[100px] h-screen border-[1px] border-[#074173] bg-[#074173] overflow-hidden bg-opacity-50 px-2 py-2 '>
         <h1 className='text-lg font-semibold text-center mb-10 ' >Friends</h1>
         {
           friends.map((item)=>(
-            <div onClick={()=>handleUserData(item)} key={item.key} className="flex justify-between gap-8 mb-5 ">
-             <div className='flex items-center gap-5'> 
-                <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
-                 <img className='w-full h-full rounded-full' src={item.friendPhoto} alt="user photo" />
+            <div onClick={()=>handleUserData(item)} key={item.key} className="flex justify-start gap-3 items-center mb-5 ">
+             {/* <div className='flex items-center gap-5'>  */}
+                <div className=" bg-green-100 user_image w-[30px] h-[30px] rounded-full overflow-hidden">
+                 <img className='w-full h-full rounded-full' src={item?.friendPhoto} alt="user photo" />
                  </div>
-                 <h2 className='text-lg font-semibold'>{item.friendName} </h2>
-             </div>
+                 <h2 className='text-lg font-semibold hidden md:block'>{item?.friendName} </h2>
+             {/* </div> */}
          </div>
           ))
         }

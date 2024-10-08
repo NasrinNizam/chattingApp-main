@@ -66,7 +66,6 @@ export const Home = () => {
 
 
   // ======== console part
-  console.log(cropData)
   return (
     <>
     <section className=' relative w-full h-screen flex justify-center items-center'>

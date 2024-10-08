@@ -60,9 +60,9 @@ export const Massage = () => {
         <div className="flex justify-between p-2 gap-8 w-full bg-[#074173] ">
              <div className='flex items-center gap-5 ml-3'> 
                 <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
-                 <img src={chatUsers.friendPhoto} alt="user photo" />
+                 <img src={chatUsers?.friendPhoto} alt="user photo" />
                  </div>
-                 <h2 className='text-lg text-white font-semibold'>{chatUsers.friendName}</h2>
+                 <h2 className='text-lg text-white font-semibold'>{chatUsers?.friendName}</h2>
              </div>
          </div>
              <div className="massages p-5 w-full h-[440px] bg-white overflow-y-scroll">
@@ -70,13 +70,13 @@ export const Massage = () => {
                 massage.map((item)=>(
                   item.senderId == sliceuser.uid?
                   <div key={item.key} className=" mb-3">
-                    <p  className='send w-fit py-1 px-3 ml-auto bg-[#78B7D0] mb-1 text-white rounded  '>{item.MSG} </p>
-                    <p  className=' text-sm w-fit py-1  ml-auto bg-transparent text-black rounded  '>{item.msgTime} </p>
+                    <p  className='send w-fit py-1 px-3 ml-auto bg-[#78B7D0] mb-1 text-white rounded  '>{item?.MSG} </p>
+                    <p  className=' text-sm w-fit py-1  ml-auto bg-transparent text-black rounded  '>{item?.msgTime} </p>
                   </div>
                   :
                   <div className="mb-3 flex flex-col items-start">
-                    <p className='receive w-fit py-1 px-3 bg-[#074173] text-white mb-1 rounded  '>{item.MSG} </p>
-                    <p className=' text-sm w-fit py-1  bg-transparent text-black rounded  '>{item.msgTime} </p>
+                    <p className='receive w-fit py-1 px-3 bg-[#074173] text-white mb-1 rounded  '>{item?.MSG} </p>
+                    <p className=' text-sm w-fit py-1  bg-transparent text-black rounded  '>{item?.msgTime} </p>
                   </div>
 
                 ))
