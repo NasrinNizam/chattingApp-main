@@ -34,7 +34,7 @@ export const ChatBar = () => {
       localStorage.setItem('chatUser' , JSON.stringify(item))
     }
   return (
-    <div className='md:w-[250px] w-[100px] h-screen border-[1px] border-[#074173] bg-[#074173] overflow-hidden bg-opacity-50 px-2 py-2 '>
+    <div className='px-10 h-screen border-[1px] border-[#074173] bg-[#074173] overflow-hidden bg-opacity-50 py-2 '>
         <h1 className='text-lg font-semibold text-center mb-10 ' >Friends</h1>
         {
           friends.map((item)=>(

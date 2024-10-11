@@ -56,7 +56,7 @@ export const Massage = () => {
 
   
   return (
-    <div className='w-full'>
+    <div className='w-[500px] '>
         <div className="flex justify-between p-2 gap-8 w-full bg-[#074173] ">
              <div className='flex items-center gap-5 ml-3'> 
                 <div className=" bg-green-100 user_image w-[50px] h-[50px] rounded-full overflow-hidden">
